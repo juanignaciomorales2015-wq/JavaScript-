@@ -29,3 +29,28 @@ if (edad>25 && edad<50) {
   else{
         console.log("Condicion NO Cumplida")
 };
+
+// Actividad Practica
+
+let numero = parseInt(prompt("Ingrese un número"));
+let suma = 0;
+
+for (let i = 1; i <= 5; i++) {
+    suma = numero + i;
+    console.log("Resultado de la suma: " + suma);
+}
+
+// let contador = 1;
+
+while (contador <= 5) {
+    console.log("Repetición número " + contador);
+    contador++;
+}
+
+let cantidad = parseInt(prompt("Ingrese un número"));
+let contador = 1;
+
+while (contador <= cantidad) {
+    alert("Hola");
+    contador++;
+}
