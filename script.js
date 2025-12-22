@@ -30,7 +30,7 @@ if (edad>25 && edad<50) {
         console.log("Condicion NO Cumplida")
 };
 
-// Actividad Practica
+// Actividad Practica Unidad 3
 
 let numero = parseInt(prompt("Ingrese un número"));
 let suma = 0;
@@ -54,3 +54,40 @@ while (contador <= cantidad) {
     alert("Hola");
     contador++;
 }
+
+// 1️⃣ Función de ENTRADA de datos
+function solicitarDatos() {
+    let numero1 = parseInt(prompt("Ingrese el primer número:"));
+    let numero2 = parseInt(prompt("Ingrese el segundo número:"));
+
+    return {
+        n1: numero1,
+        n2: numero2
+    };
+}
+
+// 2️⃣ Función de PROCESAMIENTO
+function procesarDatos(datos) {
+    let suma = datos.n1 + datos.n2;
+    let promedio = suma / 2;
+
+    return {
+        suma: suma,
+        promedio: promedio
+    };
+}
+
+// 3️⃣ Función de SALIDA
+function mostrarResultado(resultado) {
+    alert(
+        "La suma es: " + resultado.suma +
+        "\nEl promedio es: " + resultado.promedio
+    );
+
+    console.log("Resultado:", resultado);
+}
+
+// 🔁 Algoritmo principal (llamadas en orden)
+let datosIngresados = solicitarDatos();
+let datosProcesados = procesarDatos(datosIngresados);
+mostrarResultado(datosProcesados);
