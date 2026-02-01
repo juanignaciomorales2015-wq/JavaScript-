@@ -185,16 +185,17 @@ let paises = document.getElementsByClassName ("paises")
 console.log(paises [0].innerHTML);
 console.log(paises [1].innerHTML);
 console.log(paises [2].innerHTML);
-
 let contenedores = document.getElementsByTagName ("div");
 console.log(contenedores [0].innerHTML);
 console.log(contenedores [1].innerHTML); */
 
-let h1 = document.querySelectorAll ("h1")
+/* let h1 = document.querySelectorAll ("h1")
 console.log(h1);
 
 let paises = document.querySelectorAll (".paises")
-console.log(paises);
+console.log(paises); */
+
+
 
 
 
