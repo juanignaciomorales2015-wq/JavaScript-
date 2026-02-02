@@ -195,15 +195,224 @@ console.log(h1);
 let paises = document.querySelectorAll (".paises")
 console.log(paises); */
 
+/* let div = document.getElementById ("div");
+div.innerHTML = "<h2>Que onda wey</h2> <p>Hola</p>" */
+
+/* let titulo = document.getElementById ("h1");
+titulo.innerText = "Nuevo Titulo"; */
+
+/* let enlace = document.querySelector ("#a");
+enlace.setAttribute ("href", "https://www.google.com") */
+
+/* let nuevoDiv = document.createElement ("div");
+nuevoDiv.innerHTML = "<p>Este es el nuevo</p>"
+document.body.appendChild (nuevoDiv); */
+
+/* const nombre = "Nacho"
+const edad = 26
+
+const contenedor = document.getElementById ("info");
+contenedor.innerHTML = `
+<h2>Informacion del Usuario</h2>
+<p>Nombre: ${nombre}</p>
+<p>Edad: ${edad}</p>
+`; */
+
+/* const productos = [
+    {nombre:"Arroz", precio:125},
+    {nombre:"Fideos", precio:70},
+    {nombre:"Pan", precio:50},
+];
+
+const contenedor = document.getElementById ("productos");
+contenedor.innerHTML = `
+    <><h2>Lista de Productos</h2><ul>
+        ${productos.map(productos => ` <li>$(productos.nombre} - $${productos.precio}</li>`).join()}
+    </ul></>
+` */
+
+/* const boton = document.getElementById ("miBoton");
+boton.addEventListener ("click" , function(){
+    alert ("Hiciste click usando addEventListener");
+});
+console.log("Evento Disparado"); */
+
+/* let boton = document.getElementById ("miBoton");
+boton.onclick =() => {console.log("Click");
+boton.onmousemove = () => {console.log("Move");
+}
+} */
+
+/* let input1 = document.getElementById ("nombre");
+let input2 = document.getElementById ("edad");
+input1.onchange = () => {console.log("Valor 1")};
+input2.onchange = () => {console.log("Valor 2");} */
+
+/* let miFormulario = document.getElementById ("formulario");
+miFormulario.addEventListener ("submit" , validarFormulario);
+function validarFormulario (e){
+    e.preventDefault ();
+    console.log("Formulario Enviado");}
+ */
+
+/* let carrito = [];
+
+let productos = [
+    {id:1, nombre:"Remera", precio:25000},
+    {id:2, nombre:"Campera", precio:65000},
+    {id:3, nombre:"Jean", precio:40000},
+    {id:4, nombre:"Gorra", precio:15000},
+];
+
+const agregarAlCarrito = (i) =>{
+    carrito.push(productos[parseInt(i) -1]);
+    alert(`${productos[parseInt(i) - 1].nombre} agregado al carrito.`);
+}
+
+const obtenerTotal = (arrayCarrito) => {
+    return arrayCarrito.reduce((total, item) => total + item.precio, 0);
+}
+
+let opcion;
+
+do{
+    opcion = prompt (
+    "Bienvenido/a a nuestra Tienda: Elejir Productos: \n 1) Remera \n 2) Campera \n 3)Jean \n 4) Gorra \n 5) Ver Carrito y Total \n 6) Salir")
+
+switch (opcion) {
+    case "1":
+    agregarAlCarrito (opcion);
+        break;
+        case "2":
+    agregarAlCarrito (opcion);
+        break;
+        case "3":
+    agregarAlCarrito (opcion);
+        break;
+        case "4":
+    agregarAlCarrito (opcion);
+        break;
+        case "5":
+  if (carrito.length === 0) {
+        alert("El carrito está vacío.");} 
+    else {
+let totalCompra = obtenerTotal(carrito);  
+     console.table(carrito); 
+    alert("Revisa la consola para ver el detalle.\nEl total actual es: $" + totalCompra);}
+    break;
+      case "6":
+            let totalFinal = obtenerTotal(carrito);
+            console.log ("Gracias por visitarnos. Total a pagar: $" + totalFinal);
+            break;
+        default:
+            alert("Opción Incorrecta");}
+    } while (opcion !=6);
+
+    const frutas = [
+        {id: 1, nombre: "Durazno", precio: 1300},
+        {id: 2, nombre: "Manzana", precio: 3000},
+        {id: 3, nombre: "Kiwi", precio: 4500},
+        {id: 4, nombre: "Banana", precio: 2500},
+        {id: 5, nombre: "Anana", precio: 3000},
+        {id: 6, nombre: "Mandarina", precio: 1500},
+    ];
+
+    const cargarDOM = () => {
+        let contenedor = document.getElementById ("contenedor");
+
+        frutas.forEach ((fruta) =>{
+            let div = document.createElement ("div");
+            div.className = "border";
+            div.innerHTML = `
+            <h3>Id: ${fruta.id}</h3>
+            <h2>Nombre: ${fruta.nombre}</h2>
+            <span>Precio: $${fruta.precio}</span>
+      `;
+      contenedor.appendChild (div);
+    });
+}; */
+
+// 1. DATA: Recuperamos del Storage o empezamos con array vacío
+let productos = [
+    {id: 1, nombre: "Remera", precio: 25000},
+    {id: 2, nombre: "Campera", precio: 65000},
+    {id: 3, nombre: "Jean", precio: 40000},
+    {id: 4, nombre: "Gorra", precio: 15000},
+];
+
+// Operador lógico OR para inicializar carrito desde localStorage
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+// 2. REFERENCIAS AL DOM
+const contenedorProds = document.getElementById("contenedor-productos");
+const listaCarrito = document.getElementById("lista-carrito");
+const totalTexto = document.getElementById("total-precio");
+const btnFinalizar = document.getElementById("btn-finalizar");
+
+// 3. FUNCIONES DE ORDEN SUPERIOR
+// Renderizamos productos usando .forEach
+const mostrarProductos = () => {
+    productos.forEach(prod => {
+        let div = document.createElement("div");
+        div.className = "producto-card";
+        div.innerHTML = `
+            <span>${prod.nombre} - $${prod.precio}</span>
+            <button class="btn-agregar" id="btn${prod.id}">Agregar</button>
+        `;
+        contenedorProds.appendChild(div);
+
+        // EVENTOS: Escuchamos el click de cada botón creado
+        document.getElementById(`btn${prod.id}`).addEventListener("click", () => {
+            agregarAlCarrito(prod.id);
+        });
+    });
+};
+
+const agregarAlCarrito = (id) => {
+    // Buscamos el producto usando .find
+    const item = productos.find(p => p.id === id);
+    carrito.push(item);
+    
+    actualizarInterfaz();
+};
+
+const actualizarInterfaz = () => {
+    // Limpiamos la lista para no duplicar elementos visuales
+    listaCarrito.innerHTML = "";
+    
+    carrito.forEach((prod, index) => {
+        let li = document.createElement("li");
+        li.innerHTML = `${prod.nombre} - $${prod.precio}`;
+        listaCarrito.appendChild(li);
+    });
+
+    // Calculamos total con .reduce
+    const total = carrito.reduce((acc, p) => acc + p.precio, 0);
+    totalTexto.innerText = total;
+
+    // STORAGE: Guardamos el carrito para que no se borre al refrescar
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+};
+
+// 4. EVENTOS FINALES
+btnFinalizar.addEventListener("click", () => {
+    if(carrito.length > 0) {
+        alert("¡Gracias por tu compra!");
+        carrito = [];
+        localStorage.clear();
+        actualizarInterfaz();
+    } else {
+        alert("El carrito está vacío.");
+    }
+});
+
+// INICIO DE LA APP
+mostrarProductos();
+actualizarInterfaz(); // Carga lo que haya quedado en Storage
 
 
 
-
-
-
-
-
-
+    
 
 
 
