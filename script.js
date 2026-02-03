@@ -1,3 +1,77 @@
+let productos = [
+    {id: 1, nombre: "Remera", precio: 25000},
+    {id: 2, nombre: "Campera", precio: 65000},
+    {id: 3, nombre: "Jean", precio: 40000},
+    {id: 4, nombre: "Gorra", precio: 15000},
+];
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+const contenedorProds = document.getElementById("contenedor-productos");
+const listaCarrito = document.getElementById("lista-carrito");
+const totalTexto = document.getElementById("total-precio");
+const btnFinalizar = document.getElementById("btn-finalizar");
+
+
+const mostrarProductos = () => {
+    productos.forEach(prod => {
+        let div = document.createElement("div");
+        div.className = "producto-card";
+        div.innerHTML = `
+            <span>${prod.nombre} - $${prod.precio}</span>
+            <button class="btn-agregar" id="btn${prod.id}">Agregar</button>
+        `;
+        contenedorProds.appendChild(div);
+
+        document.getElementById(`btn${prod.id}`).addEventListener("click", () => {
+            agregarAlCarrito(prod.id);
+        });
+    });
+};
+
+const agregarAlCarrito = (id) => {
+
+    const item = productos.find(p => p.id === id);
+    carrito.push(item);
+    
+    actualizarInterfaz();
+};
+
+const actualizarInterfaz = () => {
+  
+    listaCarrito.innerHTML = "";
+    
+    carrito.forEach((prod, index) => {
+        let li = document.createElement("li");
+        li.innerHTML = `${prod.nombre} - $${prod.precio}`;
+        listaCarrito.appendChild(li);
+    });
+
+   
+    const total = carrito.reduce((acc, p) => acc + p.precio, 0);
+    totalTexto.innerText = total;
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+};
+
+
+btnFinalizar.addEventListener("click", () => {
+    if(carrito.length > 0) {
+        alert("¡Gracias por tu compra!");
+        carrito = [];
+        localStorage.clear();
+        actualizarInterfaz();
+    } else {
+        alert("El carrito está vacío.");
+    }
+});
+
+
+mostrarProductos();
+actualizarInterfaz(); 
+
+
+
 /* for (let i=0;i<5;i++){
     console.log(i);
 }
@@ -332,83 +406,7 @@ let totalCompra = obtenerTotal(carrito);
     });
 }; */
 
-// 1. DATA: Recuperamos del Storage o empezamos con array vacío
-let productos = [
-    {id: 1, nombre: "Remera", precio: 25000},
-    {id: 2, nombre: "Campera", precio: 65000},
-    {id: 3, nombre: "Jean", precio: 40000},
-    {id: 4, nombre: "Gorra", precio: 15000},
-];
 
-// Operador lógico OR para inicializar carrito desde localStorage
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-// 2. REFERENCIAS AL DOM
-const contenedorProds = document.getElementById("contenedor-productos");
-const listaCarrito = document.getElementById("lista-carrito");
-const totalTexto = document.getElementById("total-precio");
-const btnFinalizar = document.getElementById("btn-finalizar");
-
-// 3. FUNCIONES DE ORDEN SUPERIOR
-// Renderizamos productos usando .forEach
-const mostrarProductos = () => {
-    productos.forEach(prod => {
-        let div = document.createElement("div");
-        div.className = "producto-card";
-        div.innerHTML = `
-            <span>${prod.nombre} - $${prod.precio}</span>
-            <button class="btn-agregar" id="btn${prod.id}">Agregar</button>
-        `;
-        contenedorProds.appendChild(div);
-
-        // EVENTOS: Escuchamos el click de cada botón creado
-        document.getElementById(`btn${prod.id}`).addEventListener("click", () => {
-            agregarAlCarrito(prod.id);
-        });
-    });
-};
-
-const agregarAlCarrito = (id) => {
-    // Buscamos el producto usando .find
-    const item = productos.find(p => p.id === id);
-    carrito.push(item);
-    
-    actualizarInterfaz();
-};
-
-const actualizarInterfaz = () => {
-    // Limpiamos la lista para no duplicar elementos visuales
-    listaCarrito.innerHTML = "";
-    
-    carrito.forEach((prod, index) => {
-        let li = document.createElement("li");
-        li.innerHTML = `${prod.nombre} - $${prod.precio}`;
-        listaCarrito.appendChild(li);
-    });
-
-    // Calculamos total con .reduce
-    const total = carrito.reduce((acc, p) => acc + p.precio, 0);
-    totalTexto.innerText = total;
-
-    // STORAGE: Guardamos el carrito para que no se borre al refrescar
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-};
-
-// 4. EVENTOS FINALES
-btnFinalizar.addEventListener("click", () => {
-    if(carrito.length > 0) {
-        alert("¡Gracias por tu compra!");
-        carrito = [];
-        localStorage.clear();
-        actualizarInterfaz();
-    } else {
-        alert("El carrito está vacío.");
-    }
-});
-
-// INICIO DE LA APP
-mostrarProductos();
-actualizarInterfaz(); // Carga lo que haya quedado en Storage
 
 
 
