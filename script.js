@@ -407,7 +407,63 @@ let totalCompra = obtenerTotal(carrito);
 }; */
 
 
+/* let temporizador = setTimeout(() => {
+    console.log("Esto se ejecuta despues de 2 segundos");
+}, 2000);
 
+clearTimeout(temporizador); */
+
+/* let intervalo = setInterval(() => {
+    console.log("Esto se ejecuta cada 2 segundos");
+}, 2000);
+
+clearInterval(intervalo); */
+
+/* async function fetchData(){
+    try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await response.json();
+    return data;
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
+    }
+}
+
+(async () => {
+    const datosObtenidos = await fetchData();
+    console.log("Datos obtenidos con await:", datosObtenidos);
+})(); */
+
+/* fetch('https://jsonplaceholder.typicode.com/posts')
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error al obtener los datos:", error)); */
+
+/* Toastify({
+    text: "NOTIFICACION",
+    duration: 3000,
+    destination: "https://google.com",
+    newWindow: true,
+    close: true,
+    gravity: "top", // `top` or `bottom`
+    position: "left", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    },
+    onClick: function(){} // Callback after click
+  }).showToast(); */
+
+ /*  Toastify({
+    text: "NOTIFICACION",
+    className: "info",
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    }
+  }).showToast(); */
+
+ 
+  
 
 
     
